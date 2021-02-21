@@ -9,8 +9,7 @@ COPY . .
 
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
     --mount=type=cache,target=/usr/src/app/target \
-    cargo build --release
-
-RUN ln -s target/release/libwordsearch.so wordsearch.so
+    cargo build --release && \
+    cp target/release/libwordsearch.so wordsearch.so
 
 CMD [ "python3", "./main.py" ]
