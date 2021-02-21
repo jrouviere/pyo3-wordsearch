@@ -5,8 +5,9 @@ use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 
 const WLEN: usize = 8;
+const WCOUNT: usize = 10;
 
-fn search_all_impl(cyls: [[char; 10]; WLEN], words: Vec<&str>) -> Vec<(&str, Vec<usize>)> {
+fn search_all_impl(cyls: [[char; WCOUNT]; WLEN], words: Vec<&str>) -> Vec<(&str, Vec<usize>)> {
     let char_to_cyl = build_char_to_cyl(cyls);
 
     let empty: Vec<usize> = Vec::new();
@@ -71,7 +72,7 @@ fn search(options: [&Vec<usize>; WLEN]) -> Option<Vec<usize>> {
     }
 }
 
-fn build_char_to_cyl(cyls: [[char; 10]; WLEN]) -> HashMap<char, Vec<usize>> {
+fn build_char_to_cyl(cyls: [[char; WCOUNT]; WLEN]) -> HashMap<char, Vec<usize>> {
     let mut char_to_cyl: HashMap<char, Vec<usize>> = HashMap::new();
     for (i, cy) in cyls.iter().enumerate() {
         for ch in cy.iter() {
@@ -83,7 +84,7 @@ fn build_char_to_cyl(cyls: [[char; 10]; WLEN]) -> HashMap<char, Vec<usize>> {
 }
 
 #[pyfunction]
-fn search_all(cyls: [[char; 10]; WLEN], words: Vec<&str>) -> PyResult<Vec<(&str, Vec<usize>)>> {
+fn search_all(cyls: [[char; WCOUNT]; WLEN], words: Vec<&str>) -> PyResult<Vec<(&str, Vec<usize>)>> {
     Ok(search_all_impl(cyls, words))
 }
 
