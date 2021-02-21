@@ -21,6 +21,7 @@ if __name__ == '__main__':
 
 
     def run():
-        wordsearch.search_all(cyls, words)
+        res = wordsearch.search_all(cyls, words)
+        assert len(res) == 10077
 
     print(f"time: {timeit.timeit(run, number=1)}")
